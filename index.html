@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Eid Greeting!</title>
+    <style>
+        :root {
+            --card-bg: #013220; /* Deep Green */
+            --accent-gold: #FFD700; /* Gold */
+            --accent-light-gold: #FFFACD; /* LemonChiffon for lighter text */
+            --button-grad-start: #FFEB3B; /* Bright Yellow */
+            --button-grad-end: #8BC34A;   /* Light Green */
+            --text-dark: #111;
+            --text-light: #f0f0f0;
+            --border-radius-card: 20px;
+            --border-radius-inner: 10px;
+            --sparkle-color1: #FFD700;
+            --sparkle-color2: #FFFACD;
+            --sparkle-color3: #FFA500; /* Orange for variety */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #050510 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80"><circle fill="%23101020" cx="40" cy="40" r="2"></circle></svg>');
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 15px;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+        }
+
+        .sparkle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: absolute;
+            background-color: var(--accent-gold);
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkle-animation 3s infinite ease-out;
+            box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+        }
+
+        @keyframes sparkle-animation {
+            0% {
+                opacity: 0;
+                transform: translateY(20vh) scale(0.5);
+            }
+            20%, 60% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) scale(1.2);
+            }
+        }
+
+        .sparkle:nth-child(1) { width: 5px; height: 5px; top: 80%; left: 10%; animation-delay: 0s; color: var(--sparkle-color1); }
+        .sparkle:nth-child(2) { width: 3px; height: 3px; top: 70%; left: 90%; animation-delay: 0.3s; color: var(--sparkle-color2); }
+        .sparkle:nth-child(3) { width: 6px; height: 6px; top: 90%; left: 50%; animation-delay: 0.6s; color: var(--sparkle-color3); }
+        .sparkle:nth-child(4) { width: 4px; height: 4px; top: 60%; left: 30%; animation-delay: 0.9s; color: var(--sparkle-color1); }
+        .sparkle:nth-child(5) { width: 5px; height: 5px; top: 85%; left: 70%; animation-delay: 1.2s; color: var(--sparkle-color2); }
+        .sparkle:nth-child(6) { width: 3px; height: 3px; top: 75%; left: 20%; animation-delay: 1.5s; color: var(--sparkle-color3); }
+        .sparkle:nth-child(7) { width: 6px; height: 6px; top: 65%; left: 80%; animation-delay: 1.8s; color: var(--sparkle-color1); }
+        .sparkle:nth-child(8) { width: 4px; height: 4px; top: 95%; left: 40%; animation-delay: 2.1s; color: var(--sparkle-color2); }
+        .sparkle:nth-child(9) { width: 5px; height: 5px; top: 55%; left: 60%; animation-delay: 2.4s; color: var(--sparkle-color3); }
+        .sparkle:nth-child(10){ width: 3px; height: 3px; top: 80%; left: 5%; animation-delay: 2.7s; color: var(--sparkle-color1); }
+        .sparkle:nth-child(11){ width: 6px; height: 6px; top: 70%; left: 95%; animation-delay: 0.15s; color: var(--sparkle-color2); }
+        .sparkle:nth-child(12){ width: 4px; height: 4px; top: 90%; left: 45%; animation-delay: 0.45s; color: var(--sparkle-color3); }
+
+
+        .page-title {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 15px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        .card-container {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-card);
+            padding: 20px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 0 15px var(--accent-gold), 0 0 30px rgba(255,215,0,0.3), 0 0 40px rgba(0,0,0,0.6);
+            border: 3px solid var(--accent-gold);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeInCard 0.8s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes fadeInCard {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .eid-gif {
+            width: calc(100% - 20px);
+            max-width: 300px;
+            height: auto;
+            border-radius: var(--border-radius-inner);
+            margin-bottom: 20px;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .main-greeting {
+            font-size: clamp(2.2rem, 7vw, 2.8rem);
+            color: var(--accent-gold);
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-shadow: 0 0 8px var(--accent-gold), 0 0 15px var(--accent-gold), 0 0 20px #ff8c00, 1px 1px 5px rgba(0,0,0,0.5);
+        }
+
+        .sub-greeting-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .sub-greeting-text {
+            font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+            color: var(--accent-light-gold);
+            font-weight: 500;
+            line-height: 1.4;
+            text-shadow: 0 0 5px var(--accent-light-gold), 0 0 10px var(--accent-gold), 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .decorative-icon {
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 0 3px var(--accent-gold));
+        }
+        
+        .decorative-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .input-label {
+            font-size: 0.9rem;
+            color: var(--accent-light-gold);
+            margin-bottom: 8px;
+            font-weight: 500;
+            text-shadow: 0 0 3px rgba(255,250,205,0.5);
+        }
+
+        #nameInput {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: var(--border-radius-inner);
+            background: #fff;
+            color: var(--text-dark);
+            font-size: 1rem;
+            text-align: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #nameInput::placeholder {
+            color: #999;
+        }
+
+        #createShareButton {
+            width: 100%;
+            padding: 14px 20px;
+            border: none;
+            border-radius: var(--border-radius-inner);
+            background: linear-gradient(90deg, var(--button-grad-start), var(--button-grad-end));
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2), 0 0 10px var(--button-grad-start);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #createShareButton:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3), 0 0 15px var(--button-grad-start);
+        }
+        #createShareButton:active {
+            transform: translateY(0px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 0 8px var(--button-grad-start);
+        }
+        
+        #customWishOutput {
+            display: none;
+        }
+
+        .audio-controls {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            z-index: 1000;
+        }
+
+        #muteButton {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 5px var(--accent-gold);
+        }
+        
+        #muteButton:hover {
+            background: var(--accent-gold);
+            color: var(--card-bg);
+            box-shadow: 0 0 10px var(--accent-gold), 0 0 15px var(--accent-gold);
+        }
+        
+        #muteButton svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkle-container">
+        <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+        <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+        <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+        <div class="sparkle"></div><div class="sparkle"></div><div class="sparkle"></div>
+    </div>
+
+    <div class="page-title">Eid-ul-Adha Mubarak!</div>
+
+    <div class="card-container">
+        <img src="eid.gif" alt="Eid Celebrations" class="eid-gif">
+
+        <h1 class="main-greeting">Eid Mubarak</h1>
+
+        <div class="sub-greeting-container">
+            <p class="sub-greeting-text">Wishing you and your family a blessed Eid-ul-Adha!</p>
+            <span class="decorative-icon">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="50,5 95,85 5,85" fill="#FFD700"/>
+                    <path d="M50 20 C 40 20, 35 25, 35 35 L 35 60 C 35 65, 40 70, 50 70 C 60 70, 65 65, 65 60 L 65 35 C 65 25, 60 20, 50 20 Z M 50 65 C 45 65, 40 62, 40 58 L 40 38 C 40 34, 45 31, 50 31 C 55 31, 60 34, 60 38 L 60 58 C 60 62, 55 65, 50 65 Z" fill="#4A90E2"/>
+                    <circle cx="50" cy="48" r="8" fill="#87CEEB"/>
+                    <line x1="50" y1="60" x2="50" y2="75" stroke="#333" stroke-width="4" />
+                    <circle cx="50" cy="78" r="5" fill="#333" />
+                </svg>
+            </span>
+        </div>
+
+        <p class="input-label">Your Name:</p>
+        <input type="text" id="nameInput" placeholder="Enter your name here">
+
+        <button id="createShareButton">Create & Share Eid Greeting</button>
+        
+        <p id="customWishOutput"></p>
+    </div>
+
+    <audio id="bgMusic" src="song.mp3" loop autoplay></audio>
+    <div class="audio-controls">
+        <button id="muteButton" aria-label="Toggle Mute">
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nameInput = document.getElementById('nameInput');
+            const createShareButton = document.getElementById('createShareButton');
+            const customWishOutput = document.getElementById('customWishOutput');
+            
+            const bgMusic = document.getElementById('bgMusic');
+            const muteButton = document.getElementById('muteButton');
+
+            const volumeIconSVG = `
+                <svg viewBox="0 0 24 24">
+                    <path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
+                </svg>`;
+            const muteIconSVG = `
+                <svg viewBox="0 0 24 24">
+                    <path d="M12,4L7,9H3V15H7L12,20V4M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,13.91 18.22,15.61 17,16.91L19.07,19C20.5,17.3 21.5,15.03 21.5,12.58C21.5,8.3 18.5,4.72 14.5,3.82L14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.48,12.43 16.5,12.21 16.5,12M1.39,4.22L19.78,22.61L21.19,21.19L14,14.18V16C15.5,15.29 16.5,13.76 16.5,12C16.5,11.79 16.48,11.57 16.45,11.37L12.78,7.7L1.39,4.22Z" />
+                </svg>`;
+
+            bgMusic.volume = 0.3; 
+            
+            bgMusic.play().catch(error => {
+                console.warn("Audio autoplay was prevented. User interaction might be needed.", error);
+            });
+
+            function updateMuteButtonIcon() {
+                if (bgMusic.muted || bgMusic.paused) {
+                    muteButton.innerHTML = muteIconSVG;
+                    muteButton.setAttribute('aria-label', 'Unmute');
+                } else {
+                    muteButton.innerHTML = volumeIconSVG;
+                    muteButton.setAttribute('aria-label', 'Mute');
+                }
+            }
+            bgMusic.onplay = updateMuteButtonIcon;
+            bgMusic.onpause = updateMuteButtonIcon;
+            bgMusic.onvolumechange = updateMuteButtonIcon;
+            updateMuteButtonIcon(); 
+
+            muteButton.addEventListener('click', () => {
+                if (bgMusic.muted) {
+                    bgMusic.muted = false;
+                    if (bgMusic.paused) bgMusic.play().catch(e => console.warn("Play after unmute failed", e));
+                } else {
+                    bgMusic.muted = true;
+                }
+                updateMuteButtonIcon();
+            });
+
+            createShareButton.addEventListener('click', () => {
+                const name = nameInput.value.trim() || "Friend"; // Default name in English
+                const personalWish = `Eid Mubarak from ${name}! 🥳 Wishing you happiness and blessings!`;
+                
+                customWishOutput.textContent = personalWish; // Storing for potential future use, not displayed.
+
+                const siteUrl = window.location.href;
+                const mainGreetingOnPage = document.querySelector('.main-greeting').textContent; // "Eid Mubarak"
+                const subGreetingOnPage = document.querySelector('.sub-greeting-text').textContent; // "Wishing you and your family..."
+
+                // Constructing the WhatsApp message with English page content
+                let whatsappMessage = `${mainGreetingOnPage}\n${subGreetingOnPage}\n\n`;
+                whatsappMessage += `From: ${name} 🥳\n\n`; // Your personal wish part
+                whatsappMessage += `Create your own Eid Greeting:\n${siteUrl}`;
+
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
+                
+                window.open(whatsappUrl, '_blank');
+            });
+            nameInput.focus();
+        });
+    </script>
+
+</body>
+</html>
